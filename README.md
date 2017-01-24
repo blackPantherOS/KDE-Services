@@ -1,6 +1,6 @@
-Extra Services Based on KDE-Services
-# Author: Geovani Barzaga Rodriguez <igeo.cu@gmail.com>.	#
-# KDE-Services 2011-2016. GPLv3+				#
+# Extra Services Based on KDE-Services #
+ Author: Geovani Barzaga Rodriguez <igeo.cu@gmail.com>.	
+ KDE-Services 2011-2016. GPLv3+		
 
 Description:
 
