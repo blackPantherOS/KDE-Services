@@ -56,7 +56,7 @@ Enables the following functionalities on the Dolphin's (File Manager) right clic
 - Add Subtitle to MP4 File.
 
 Requirements:
-
+- PyDialog (https://github.com/blackPantherOS/playground/tree/master/pydialog)
 - android-tools
 - bash
 - bc
@@ -122,8 +122,11 @@ Requirements:
 - youtube-dl
 - zip
 
-Install:
+Install/uninstall Extra-Services (formerly: sericemenu-kde-services) on blackPanther OS :
+- # installing servicemenu-extra-services
+- # uninstall servicemenu-extra-services 
 
+Install on Other
 - $ tar -jxvf kde-services-2.1.tar.bz2
 - $ cd kde-services-2.1
 - $ sudo make install
