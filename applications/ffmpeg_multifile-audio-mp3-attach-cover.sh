@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2016.					#
+# For Extra-Services. 2011-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -36,7 +36,7 @@ if-cancel-exit() {
 
 if-ffmpeg-cancel() {
     if [ "$?" != "0" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Attaching ${COVER##*/} to ${i##*/}" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Attaching ${COVER##*/} to ${i##*/}" \
                        --passivepopup="[Canceled]   Check the path and filename not contain whitespaces. Check error log $LOGERROR. Try again"
         mv $LOG $DESTINATION/$LOGERROR
         continue
@@ -47,7 +47,7 @@ progressbar-start() {
     COUNT="0"
     COUNTFILES=$(echo $FILES|wc -w)
     COUNTFILES=$((++COUNTFILES))
-    DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" --progressbar "				" $COUNTFILES)
+    DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" --progressbar "				" $COUNTFILES)
 }
 
 progressbar-close() {
@@ -63,15 +63,15 @@ qdbusinsert() {
 
 elapsedtime() {
     if [ "$ELAPSED_TIME" -lt "60" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
                        --passivepopup="[Finished]  ${i##*/}   Elapsed Time: ${ELAPSED_TIME}s"
     elif [ "$ELAPSED_TIME" -gt "59" ] && [ "$ELAPSED_TIME" -lt "3600" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/60"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
                        --passivepopup="[Finished]   ${i##*/}   Elapsed Time: ${ELAPSED_TIME}m"
     elif [ "$ELAPSED_TIME" -gt "3599" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/3600"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Attach Cover to MP3 Files" \
                        --passivepopup="[Finished]   ${i##*/}   Elapsed Time: ${ELAPSED_TIME}h"
     fi
     rm -f $LOG
@@ -122,14 +122,14 @@ if [ "$DIR" == "/usr/share/applications" ]; then
     DIR="~/"
 fi
 
-COVER=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Picture File" \
+COVER=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Picture File" \
         --getopenfilename "$DIR" "*.bmp *.gif *.jp2 *.jpeg *.jpg *.svgz *.tif *.tiff *.BMP *.GIF *.JP2 *.JPEG *.JPG *.PNG *.TIF *.TIFF|*.bmp *.gif *.jp2 *.jpeg *.jpg *.svgz *.tif *.tiff" 2> /dev/null)
 if-cancel-exit
 
-FILES=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Audio MP3 Files" --multiple --getopenfilename "$DIR" "*.MP3 *.mp3|*.mp3" 2> /dev/null)
+FILES=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Audio MP3 Files" --multiple --getopenfilename "$DIR" "*.MP3 *.mp3|*.mp3" 2> /dev/null)
 if-cancel-exit
 
-DESTINATION=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Destination Audio Files" --getexistingdirectory "$DIR" 2> /dev/null)
+DESTINATION=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-audio-mp3-attach-cover.svgz --title="Destination Audio Files" --getexistingdirectory "$DIR" 2> /dev/null)
 if-cancel-exit
 
 progressbar-start

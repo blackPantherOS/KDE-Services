@@ -1,6 +1,6 @@
 #!/bin/bash
 # Service menu for PDF Tools : script file
-# Adjusted for KDE-Services integration by Geovani Barzaga Rodriguez
+# Adjusted for Extra-Services integration by Geovani Barzaga Rodriguez
 # <igeo.cu@gmail.com>, 2013-01-09
 # Improved bash script code by Geovani Barzaga Rodriguez <igeo.cu@gmail.com>, 2014-03-06
 
@@ -41,7 +41,7 @@ nbfiles=$#
 directories_write(){
     for f in "$@"; do
         if [ ! -w "${f%/*}" ]; then
-            kdialog $KDE --error $"${f%/*} is not writable"
+            pydialog $KDE --error $"${f%/*} is not writable"
             exit 1
         fi
     done
@@ -50,7 +50,7 @@ directories_write(){
 error(){
     if [ "$?" -ne 0 ]; then
         if [ $kdbus = 'yes' ]; then qdbus $dbusRef close; fi
-        kdialog $KDE --error "$1"
+        pydialog $KDE --error "$1"
         exit 1
     fi
 }
@@ -58,8 +58,8 @@ error(){
 error_log(){
     if [ "$?" -ne 0 ]; then
         if [ $kdbus = 'yes' ]; then qdbus $dbusRef close; fi
-        kdialog $KDE --error "$1"
-        kdialog $KDE --textbox $LOG --geometry 800x600+$((WIDTH/2-800/2))+$((HEIGHT/2-600/2))
+        pydialog $KDE --error "$1"
+        pydialog $KDE --textbox $LOG --geometry 800x600+$((WIDTH/2-800/2))+$((HEIGHT/2-600/2))
         exit 1
     fi
 }
@@ -74,7 +74,7 @@ exit_silent(){
 files_read(){
     for f in "$@"; do
         if [ ! -r "$f" ]; then
-            kdialog $KDE --error $"$f is not readable"
+            pydialog $KDE --error $"$f is not readable"
             exit 1
         fi
     done
@@ -83,7 +83,7 @@ files_read(){
 files_write(){
     for f in "$@"; do
         if [ ! -w $f ]; then
-            kdialog $KDE --error $"$f is not writable"
+            pydialog $KDE --error $"$f is not writable"
             exit 1
         fi
     done
@@ -110,7 +110,7 @@ ghostscript_pages(){
 init_dbus(){
     kdbus='yes'
     count=0
-    dbusRef=$(kdialog $KDE --progressbar $"						" /ProgressDialog)
+    dbusRef=$(pydialog $KDE --progressbar $"						" /ProgressDialog)
     qdbus $dbusRef showCancelButton true
 }
 
@@ -130,7 +130,7 @@ metadata_edit_all(){
             'keywords') display_label=$"Keywords for ${1##*/}" ;;
         esac
         oldmeta="$(exiftool -PDF:$typexmp "$1" | cut -b 35-)"
-        meta="$(kdialog $KDE --textinputbox "$display_label" "$oldmeta")"
+        meta="$(pydialog $KDE --textinputbox "$display_label" "$oldmeta")"
 	exit_silent
         exiftool -P -overwrite_original -PDF:$typexmp="$meta" "$1"
         error_log $"Error during the metadata edition of $obj"
@@ -162,11 +162,11 @@ metadata_view_all(){
 }
 
 notification_dbus(){
-	kdialog $KDE --title "PDF Tools - $option" --passivepopup $"[Finished]   $nbfiles files processed."
+	pydialog $KDE --title "PDF Tools - $option" --passivepopup $"[Finished]   $nbfiles files processed."
 }
 
 quality_compress(){
-    quality=$(kdialog $KDE --radiolist $"Compression quality" \
+    quality=$(pydialog $KDE --radiolist $"Compression quality" \
         'screen'   $"Low resolution"       off \
         'ebook'    $"Medium resolution"    off \
         'printer'  $"Good resolution"      on  \
@@ -212,7 +212,7 @@ case $action in
             ghostscript_compress "$f" | tee -a $LOG
             error_log $"Error during the compression of $obj"
             metadata_save "$f" | tee -a $LOG
-            qdbus $dbusRef org.freedesktop.DBus.Properties.Set org.kde.kdialog.ProgressDialog value $count
+            qdbus $dbusRef org.freedesktop.DBus.Properties.Set org.kde.pydialog.ProgressDialog value $count
         done
         qdbus $dbusRef close
         notification_dbus ;;
@@ -222,7 +222,7 @@ case $action in
         echo "Merge all selected files" | tee -a $LOG
         files_read "$@"
         for f in "$@"; do obj="$obj \"$f\""; done
-        out="$(kdialog $KDE --title "Destination" --getsavefilename "${f%/*}/New_File.pdf" $"*.pdf | PDF Files")"
+        out="$(pydialog $KDE --title "Destination" --getsavefilename "${f%/*}/New_File.pdf" $"*.pdf | PDF Files")"
         exit_silent
         directories_write "$out"
 	echo $obj
@@ -258,7 +258,7 @@ case $action in
             file=$(file -bp "$f")
             echo -e "$f\n$file\n" > "${out}"
             metadata_view_all "$f"
-            kdialog $KDE --textbox "$out" --geometry 400x250+$((WIDTH/2-400/2))+$((HEIGHT/2-250/2))
+            pydialog $KDE --textbox "$out" --geometry 400x250+$((WIDTH/2-400/2))+$((HEIGHT/2-250/2))
             rm -f $out
         done ;;
 
@@ -271,9 +271,9 @@ case $action in
             echo "$f in progress..." | tee -a $LOG
             obj="${f##*/}"
             totalpage=$(exiftool "$f" | grep "Page Count" | cut -d: -f 2-)
-            firstpage=$(kdialog $KDE --combobox $"Splitting of $obj from the page..." $(seq 1 $totalpage) --default 1)
+            firstpage=$(pydialog $KDE --combobox $"Splitting of $obj from the page..." $(seq 1 $totalpage) --default 1)
             exit_silent
-            lastpage=$(kdialog $KDE --combobox $"... to the page..." $(seq 1 $totalpage) --default $totalpage)
+            lastpage=$(pydialog $KDE --combobox $"... to the page..." $(seq 1 $totalpage) --default $totalpage)
             exit_silent
 	    init_dbus
 	    init_files_dbus

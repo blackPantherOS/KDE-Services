@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Multimedia-Tools;
-Exec=which ffmpeg; if [ "$?" != "0" ];then kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Rotate Video Files" --passivepopup="[Error] Please install ffmpeg command and try again."; exit 1; else /usr/share/applications/ffmpeg_multifile-video-rotate.sh;fi
+Exec=which ffmpeg; if [ "$?" != "0" ];then pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Rotate Video Files" --passivepopup="[Error] Please install ffmpeg command and try again."; exit 1; else /usr/share/applications/ffmpeg_multifile-video-rotate.sh;fi
 Icon=/usr/share/icons/hicolor/scalable/apps/ks-video-rotate.svgz
 Name=Rotate Video Files
 Name[de]=Um Videoakten zu Drehen

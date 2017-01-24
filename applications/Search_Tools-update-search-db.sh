@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2016.					#
+# For Extra-Services. 2011-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -14,7 +14,7 @@ until [ "$(pidof kdesu)" = "" ]; do
   true
 done
 
-DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-search-database-update.svgz --title="Update Search DataBase" --progressbar "                                        " /ProgressDialog)
+DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-search-database-update.svgz --title="Update Search DataBase" --progressbar "                                        " /ProgressDialog)
 qdbus $DBUSREF setLabelText "Updating search database..."
 
 until [ "$(pidof updatedb)" = "" ]; do
@@ -27,6 +27,6 @@ echo  "Finish Update Search Database" > /tmp/speak
 text2wave -F 48000 -o /tmp/speak.wav /tmp/speak
 play /tmp/speak.wav 2> /dev/null
 rm -f /tmp/speak*
-kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-search-database-update.svgz --title="Update Search DataBase" --passivepopup="Finished" 2> /dev/null
+pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-search-database-update.svgz --title="Update Search DataBase" --passivepopup="Finished" 2> /dev/null
 
 exit 0

@@ -5,8 +5,8 @@ MimeType=all/allfiles;
 Type=Service
 X-KDE-ServiceTypes=KonqPopupMenu/Plugin,inode/directory
 X-KDE-StartupNotify=false
-X-KDE-Submenu=KDE-Services
-X-KDE-Submenu[x-test]=xxKDE-Servicesxx
+X-KDE-Submenu=Extra-Services
+X-KDE-Submenu[x-test]=xxExtra-Servicesxx
 
 [Desktop Action ChangeOwner]
 Exec=kdesu -i /usr/share/icons/hicolor/scalable/apps/ks-owner.svgz --noignorebutton -d /usr/share/applications/Dolphin_Tools-change-owner.sh %F

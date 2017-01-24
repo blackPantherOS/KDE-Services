@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2012-2016.					#
+# For Extra-Services. 2012-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -27,13 +27,13 @@ if-cancel-exit() {
 
 if-ffmpeg-cancel() {
     if [ "$?" != "0" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Record My Desktop" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Record My Desktop" \
                        --passivepopup="[Canceled] Check the path and filename not contain spaces. Try again"
     fi
 }
 
 record-cancel() {
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --yes-label Stop --no-label Cancel \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --yes-label Stop --no-label Cancel \
                    --yesno="Record My Desktop is running, saving video to $DESTINATION/$FILENAME.$VCODEC" 2> /dev/null
     
     if [ "$?" = "0" ] || [ "$?" != "0" ]; then
@@ -50,14 +50,14 @@ DIR=$1
 cd "$DIR"
 DIR=$(pwd)
 
-FILENAME=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --inputbox="Enter Video Filename" "RecordMyDesktop_$HOSTNAME" 2> /dev/null)
+FILENAME=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --inputbox="Enter Video Filename" "RecordMyDesktop_$HOSTNAME" 2> /dev/null)
 if-cancel-exit
 
-VCODEC=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --menu="Choose Video Codec" avi "AVI" flv "FLV" mpg "MPEG-1" webm "WebM" \
+VCODEC=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Record My Desktop" --menu="Choose Video Codec" avi "AVI" flv "FLV" mpg "MPEG-1" webm "WebM" \
        --geometry 100x100+$((WIDTH/2-100/2))+$((HEIGHT/2-100/2)) 2> /dev/null)
 if-cancel-exit
 
-DESTINATION=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Destination Video" --getexistingdirectory "$DIR" 2> /dev/null)
+DESTINATION=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-media-tape.svgz --title="Destination Video" --getexistingdirectory "$DIR" 2> /dev/null)
 if-cancel-exit
 
 

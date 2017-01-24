@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=Extra-Services;
+Exec=/usr/share/applications/About_Extra-Services.sh
+Icon=/usr/share/icons/hicolor/scalable/apps/ks-menu.svgz
+Name=About Extra-Services
+Name[de]=Über Extra-Services
+Name[es]=Acerca de Extra-Services
+Name[fr]=Au sujet de Extra-Services
+Name[it]=Circa Extra-Services
+Name[ja]=Extra-Services について
+Name[ko]=Extra-Services 에 관해
+Name[pt]=Sobre Extra-Services
+Name[ru]=О Extra-Services
+Name[uk]=Про Extra-Services
+Name[zh_CN]=有关 Extra-Services
+Path=/usr/share/applications
+StartupNotify=true
+Terminal=false
+Type=Application
+X-KDE-SubstituteUID=false

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2016.					#
+# For Extra-Services. 2011-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -21,7 +21,7 @@ if-cancel-exit() {
 ############ Main ############
 ##############################
 
-SYSUSER=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-system-process.svgz --title="Process Viewer - Htop" --combobox="Choose System User" $USER root --default $USER 2> /dev/null)
+SYSUSER=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-system-process.svgz --title="Process Viewer - Htop" --combobox="Choose System User" $USER root --default $USER 2> /dev/null)
 if-cancel-exit
 
 if [ "$SYSUSER" = "$USER" ]; then

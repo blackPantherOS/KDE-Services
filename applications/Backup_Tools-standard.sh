@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2015.					#
+# For Extra-Services. 2011-2015.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -30,7 +30,7 @@ if-cancel-exit() {
     fi
     
     if [ "$MODE" = "" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Backup Tools" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Backup Tools" \
                        --passivepopup="[Canceled]   Please, select item. Try again" 2> /dev/null
 		qdbus $DBUSREF close
         exit 1
@@ -41,7 +41,7 @@ beginning-backup() {
     COUNT="0"
     COUNTFILES=$(echo $TARGETBACKUP|wc -w)
     COUNTFILES=$((++COUNTFILES))
-    DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --progressbar "                             " $COUNTFILES)
+    DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --progressbar "                             " $COUNTFILES)
     BEGIN_TIME=$(date +%s)
 }
 
@@ -54,22 +54,22 @@ finished-backup() {
     qdbus $DBUSREF close
     
     if [ "$ELAPSED_TIME" -lt "60" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
                        --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}s" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "59" ] && [ "$ELAPSED_TIME" -lt "3600" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/60"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
                        --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}m" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "3599" ] && [ "$ELAPSED_TIME" -lt "86400" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/3600"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
                        --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}h" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "86399" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/86400"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup:   Saved on $HOME/Backups/" \
                        --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}d" 2> /dev/null
     fi
     
@@ -84,7 +84,7 @@ beginning-restore() {
     COUNT="0"
     COUNTFILES=$(echo $MODE|wc -w)
     COUNTFILES=$((++COUNTFILES))
-    DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --progressbar "                             " $COUNTFILES)
+    DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --progressbar "                             " $COUNTFILES)
     BEGIN_TIME=$(date +%s)
     COUNT=$((++COUNT))
 }
@@ -98,19 +98,19 @@ finished-restore() {
     qdbus $DBUSREF close
     
     if [ "$ELAPSED_TIME" -lt "60" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}s" 2> /dev/null
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}s" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "59" ] && [ "$ELAPSED_TIME" -lt "3600" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/60"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}m" 2> /dev/null
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}m" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "3599" ] && [ "$ELAPSED_TIME" -lt "86400" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/3600"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}h" 2> /dev/null
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}h" 2> /dev/null
         
     elif [ "$ELAPSED_TIME" -gt "86399" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/86400"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}d" 2> /dev/null
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore:   $MODE" --passivepopup="[Finished]   Elapsed Time: ${ELAPSED_TIME}d" 2> /dev/null
     fi
     
     echo "Finished All Restore" > /tmp/speak
@@ -134,7 +134,7 @@ restore-qdbusinsert() {
 ############ Main ############
 ##############################
 
-MODE=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --combobox="Choose Mode" Backup Restore --default Backup 2> /dev/null)
+MODE=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Tools" --combobox="Choose Mode" Backup Restore --default Backup 2> /dev/null)
 EXIT=$?
 if-cancel-exit
 
@@ -152,7 +152,7 @@ if [ "$MODE" = "Backup" ]; then
         $HOME/.wine \
         $HOME/.config/xmoto
     "
-    TARGETBACKUP=$(kdialog --geometry 410x350+$((WIDTH/2-410/2))+$((HEIGHT/2-350/2)) \
+    TARGETBACKUP=$(pydialog --geometry 410x350+$((WIDTH/2-410/2))+$((HEIGHT/2-350/2)) \
 		--icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Backup Standard" --separate-output --radiolist="Select For Backup" \
         system "Editable Text Configuration (/etc) and Root Home (/root)" off \
         All "All Below List" off \
@@ -161,7 +161,7 @@ if [ "$MODE" = "Backup" ]; then
         $HOME/.mozilla/firefox Firefox off \
         $HOME/.config/google-chrome "Google Chrome" off \
         $HOME/.kde "KDE User Configuration" off \
-        $HOME/.kde-services KDE-Services off \
+        $HOME/.kde-services Extra-Services off \
         $HOME/.purple Pidgin off \
         $HOME/.ssh SSH off \
         $HOME/.thunderbird Thunderbird off \
@@ -206,12 +206,12 @@ if [ "$MODE" = "Backup" ]; then
     fi
 else        
     if [ ! -d $BACKUP ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Restore Standard" --passivepopup="[Canceled]   Backup Not Found: Please, first create \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Restore Standard" --passivepopup="[Canceled]   Backup Not Found: Please, first create \
                        backup or paste your Backups directory on $HOME. Try again" 2> /dev/null
         exit 0
     fi
     
-    MODE=$(kdialog --geometry 410x350+$((WIDTH/2-410/2))+$((HEIGHT/2-350/2)) \
+    MODE=$(pydialog --geometry 410x350+$((WIDTH/2-410/2))+$((HEIGHT/2-350/2)) \
 		--icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore Standard" --menu="Select For Restore" \
          $BACKUP/system "Editable Text Configuration (/etc) and Root Home (/root)" \
          $BACKUP/filezilla FileZilla \
@@ -219,7 +219,7 @@ else
          $BACKUP/gnupg GnuPG \
          $BACKUP/google-chrome "Google Chrome" \
          $BACKUP/kde "KDE User Configuration" \
-         $BACKUP/kde-services KDE-Services \
+         $BACKUP/kde-services Extra-Services \
          $BACKUP/purple Pidgin \
          $BACKUP/ssh SSH \
          $BACKUP/thunderbird Thunderbird \
@@ -230,7 +230,7 @@ else
     if-cancel-exit
     
     if [ ! -d $MODE ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Restore Standard" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Restore Standard" \
                        --passivepopup="[Canceled]   Backup Not Found: Please, first create backup or paste your backup on $MODE. Try again" \
                        2> /dev/null
         exit 1
@@ -238,7 +238,7 @@ else
     
     cd $MODE
     RESTORELIST=$(ls $MODE)
-    MODE=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore Standard" --combobox="Select For Restore" $RESTORELIST 2> /dev/null)
+    MODE=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-database.svgz --title="Restore Standard" --combobox="Select For Restore" $RESTORELIST 2> /dev/null)
     EXIT=$?
     if-cancel-exit
     

@@ -5,11 +5,11 @@ MimeType=video/mpeg;
 ServiceTypes=KonqPopupMenu/Plugin
 Type=Service
 X-KDE-StartupNotify=false
-X-KDE-Submenu=KDE-Services
-X-KDE-Submenu[x-test]=xxKDE-Servicesxx
+X-KDE-Submenu=Extra-Services
+X-KDE-Submenu[x-test]=xxExtra-Servicesxx
 
 [Desktop Action MultiplexSubtitle]
-Exec=which ffprobe recode spumux; if [ "$?" != "0" ];then kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Multiplex Subtitle" --passivepopup="[Error] Please install ffprobe, recode and spumux command and try again."; exit 1; else /usr/share/applications/Multiplex_Subtitle.sh %F;fi
+Exec=which ffprobe recode spumux; if [ "$?" != "0" ];then pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Multiplex Subtitle" --passivepopup="[Error] Please install ffprobe, recode and spumux command and try again."; exit 1; else /usr/share/applications/Multiplex_Subtitle.sh %F;fi
 Icon=/usr/share/icons/hicolor/scalable/apps/ks-multiplexing-subs.svgz
 Name=Multiplex Subtitle
 Name[de]=Zu Mehrfachem Untertitel

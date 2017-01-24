@@ -5,8 +5,8 @@ MimeType=all/allfiles;inode/directory;
 ServiceTypes=KonqPopupMenu/Plugin
 Type=Service
 X-KDE-StartupNotify=false
-X-KDE-Submenu=KDE-Services
-X-KDE-Submenu[x-test]=xxKDE-Servicesxx
+X-KDE-Submenu=Extra-Services
+X-KDE-Submenu[x-test]=xxExtra-Servicesxx
 
 [Desktop Action ShowFileDirStatus]
 Exec=/usr/share/applications/Show_file-dir_status.sh

@@ -5,11 +5,11 @@ MimeType=application/x-tar;application/x-compressed-tar;application/x-bzip-compr
 ServiceTypes=KonqPopupMenu/Plugin
 Type=Service
 X-KDE-StartupNotify=false
-X-KDE-Submenu=KDE-Services
-X-KDE-Submenu[x-test]=xxKDE-Servicesxx
+X-KDE-Submenu=Extra-Services
+X-KDE-Submenu[x-test]=xxExtra-Servicesxx
 
 [Desktop Action CompressedFileIntegrityCheck]
-Exec=which lsar; if [ "$?" != "0" ];then kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Compressed File Integrity Check" --passivepopup="[Error] Please install lsar command and try again."; exit 1; else /usr/share/applications/Compressed_file_integrity_check.sh %F;fi
+Exec=which lsar; if [ "$?" != "0" ];then pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Compressed File Integrity Check" --passivepopup="[Error] Please install lsar command and try again."; exit 1; else /usr/share/applications/Compressed_file_integrity_check.sh %F;fi
 Icon=/usr/share/icons/hicolor/scalable/apps/ks-compressed-file.svgz
 Name=Compressed File Integrity Check
 Name[de]=Überprüfung der Integrität der Aktentablette

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2016.					#
+# For Extra-Services. 2011-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -35,7 +35,7 @@ if-cancel-exit() {
 
 if-ffmpeg-cancel() {
     if [ "$?" != "0" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Adding ${SUBS[$ARRAY_NUMBER]##*/} to ${FILES[$ARRAY_NUMBER]##*/}" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Adding ${SUBS[$ARRAY_NUMBER]##*/} to ${FILES[$ARRAY_NUMBER]##*/}" \
                        --passivepopup="[Canceled]   Check the path and filename not contain whitespaces. Check error log $LOGERROR. Try again"
         mv $LOG $DESTINATION/$LOGERROR
         continue
@@ -46,7 +46,7 @@ progressbar-start() {
     COUNT="0"
     COUNTFILES=$TOTAL_ARRAY
     COUNTFILES=$((++COUNTFILES))
-    DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" --progressbar "				" $COUNTFILES)
+    DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" --progressbar "				" $COUNTFILES)
 }
 
 progressbar-close() {
@@ -62,15 +62,15 @@ qdbusinsert() {
 
 elapsedtime() {
     if [ "$ELAPSED_TIME" -lt "60" ]; then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
                        --passivepopup="[Finished]  ${FILES[$ARRAY_NUMBER]##*/}   Elapsed Time: ${ELAPSED_TIME}s"
     elif [ "$ELAPSED_TIME" -gt "59" ] && [ "$ELAPSED_TIME" -lt "3600" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/60"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
                        --passivepopup="[Finished]   ${FILES[$ARRAY_NUMBER]##*/}   Elapsed Time: ${ELAPSED_TIME}m"
     elif [ "$ELAPSED_TIME" -gt "3599" ]; then
         ELAPSED_TIME=$(echo "$ELAPSED_TIME/3600"|bc -l|sed 's/...................$//')
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Add Subtitle to MP4 File" \
                        --passivepopup="[Finished]   ${FILES[$ARRAY_NUMBER]##*/}   Elapsed Time: ${ELAPSED_TIME}h"
     fi
     rm -f $LOG
@@ -121,13 +121,13 @@ if [ "$DIR" == "/usr/share/applications" ]; then
     DIR="~/"
 fi
 
-FILES=($(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Video Files" --multiple --getopenfilename "$DIR" "*.MP4 *.mp4|*.mp4" 2> /dev/null))
+FILES=($(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Video Files" --multiple --getopenfilename "$DIR" "*.MP4 *.mp4|*.mp4" 2> /dev/null))
 if-cancel-exit
 
-SUBS=($(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Subtitle Files" --multiple --getopenfilename "$DIR" "*.SRT *.srt|*.srt" 2> /dev/null))
+SUBS=($(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Subtitle Files" --multiple --getopenfilename "$DIR" "*.SRT *.srt|*.srt" 2> /dev/null))
 if-cancel-exit
 
-DESTINATION=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Destination Video Files" --getexistingdirectory "$DIR" 2> /dev/null)
+DESTINATION=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-add-subs.svgz --title="Destination Video Files" --getexistingdirectory "$DIR" 2> /dev/null)
 if-cancel-exit
 
 ARRAY_NUMBER="0"

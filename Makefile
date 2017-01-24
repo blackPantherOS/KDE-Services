@@ -109,8 +109,8 @@ uninstall:
 		$(PREFIXmenu)/Text-Replace_addtoservicemenu.desktop \
 		$(PREFIXmenu)/YouTube-Tools_servicemenu.desktop
 
-	rm -f $(PREFIXapp)/About_KDE-Services.desktop \
-		$(PREFIXapp)/About_KDE-Services.sh \
+	rm -f $(PREFIXapp)/About_Extra-Services.desktop \
+		$(PREFIXapp)/About_Extra-Services.sh \
 		$(PREFIXapp)/Android_Tools-apk-manager.desktop \
 		$(PREFIXapp)/Android_Tools-apk-manager.sh \
 		$(PREFIXapp)/Android_Tools-backup-restore.desktop \
@@ -309,20 +309,20 @@ uninstall:
 
 	rm -f $(PREFIXappmerge)/kde-services.menu
 
-	rm -f $(PREFIXdeskdir)/KDE-Services.directory \
-		$(PREFIXdeskdir)/KDE-Services_Android-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Backup-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Dolphin-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Dropbox-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Graphic-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Midnight-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Multimedia-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Network-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_SaMBa-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_Search-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_SSH-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_System-Tools.directory \
-		$(PREFIXdeskdir)/KDE-Services_YouTube-Tools.directory
+	rm -f $(PREFIXdeskdir)/Extra-Services.directory \
+		$(PREFIXdeskdir)/Extra-Services_Android-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Backup-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Dolphin-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Dropbox-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Graphic-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Midnight-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Multimedia-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Network-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_SaMBa-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_Search-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_SSH-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_System-Tools.directory \
+		$(PREFIXdeskdir)/Extra-Services_YouTube-Tools.directory
 
 	rm -fr $(PREFIXdoc)
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2011-2016.					#
+# For Extra-Services. 2011-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -27,23 +27,23 @@ if-cancel-exit() {
 
 if [ -s ~/.kde-services/machines ]; then
     SERVER=$(cat ~/.kde-services/machines)
-    HOST=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To" --combobox="Select Hostname or IP Address" $SERVER \
+    HOST=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To" --combobox="Select Hostname or IP Address" $SERVER \
            --default $(head -n1 ~/.kde-services/machines) 2> /dev/null)
     if-cancel-exit
-    LOGIN=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST" --combobox="Select User" $USER root \
+    LOGIN=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST" --combobox="Select User" $USER root \
           --default $USER 2> /dev/null)
     if-cancel-exit
-    PATHSEND=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST" --inputbox="Enter Path To Send" ~/ 2> /dev/null)
+    PATHSEND=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST" --inputbox="Enter Path To Send" ~/ 2> /dev/null)
     if-cancel-exit
     scp -2pr "$1" $LOGIN@$HOST:$PATHSEND
     echo "Finish Send To Remote Server" > /tmp/speak
     text2wave -F 48000 -o /tmp/speak.wav /tmp/speak
     play /tmp/speak.wav 2> /dev/null
     rm -fr /tmp/speak*
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools" --passivepopup="[Finished]   Send ${1##*/} To $HOST by $LOGIN" 2> /dev/null
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools" --passivepopup="[Finished]   Send ${1##*/} To $HOST by $LOGIN" 2> /dev/null
     exit 0
 else
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST by $LOGIN" \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-terminal.svgz --title="SSH Tools - Send To $HOST by $LOGIN" \
                        --sorry="No Find Server: First Public Key Generation and Install Public Key in Remote Server" 2> /dev/null
     exit 1
 fi

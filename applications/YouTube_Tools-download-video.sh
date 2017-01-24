@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #################################################################
-# For KDE-Services. 2012-2016.					#
+# For Extra-Services. 2012-2016.					#
 # By Geovani Barzaga Rodriguez <igeo.cu@gmail.com>		#
 #################################################################
 
@@ -47,7 +47,7 @@ if-cancel-exit() {
 
 youtube-error() {
     if [ "$EXIT" != "0" ];then
-        kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Download YouTube Video" \
+        pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-error.svgz --title="Download YouTube Video" \
                        --passivepopup="[Error]   $FILENAME $VID MPEG-4 $SIZE $WEIGHT   Check network connection or YouTube Video Code."
         echo "$VID" >> !!!_YouTube-Video-Code.err
         sed -i 's/hyphen//' !!!_YouTube-Video-Code.err
@@ -73,19 +73,19 @@ youtube-error() {
 finished() {
     if [ "$EXIT" = "0" ];then
         if [ "$ELAPSED_TIME" -lt "60" ];then
-            kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
+            pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
                            --passivepopup="[Finished]   $FILENAME $VID MPEG-4 $SIZE $WEIGHT   Elapsed Time: ${ELAPSED_TIME}s"
         elif [ "$ELAPSED_TIME" -gt "59" ] && [ "$ELAPSED_TIME" -lt "3600" ];then
             ELAPSED_TIME=$(echo "$ELAPSED_TIME/60"|bc -l|sed 's/...................$//')
-            kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
+            pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
                            --passivepopup="[Finished]   $FILENAME $VID MPEG-4 $SIZE $WEIGHT   Elapsed Time: ${ELAPSED_TIME}m"
         elif [ "$ELAPSED_TIME" -gt "3599" ] && [ "$ELAPSED_TIME" -lt "86400" ];then
             ELAPSED_TIME=$(echo "$ELAPSED_TIME/3600"|bc -l|sed 's/...................$//')
-            kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
+            pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
                            --passivepopup="[Finished]   $FILENAME $VID MPEG-4 $SIZE $WEIGHT   Elapsed Time: ${ELAPSED_TIME}h"
         elif [ "$ELAPSED_TIME" -gt "86399" ]; then
             ELAPSED_TIME=$(echo "$ELAPSED_TIME/86400"|bc -l|sed 's/...................$//')
-            kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
+            pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" \
                            --passivepopup="[Finished]   $FILENAME $VID MPEG-4 $SIZE $WEIGHT   Elapsed Time: ${ELAPSED_TIME}d"
         fi
     fi
@@ -95,7 +95,7 @@ progressbar-start() {
     COUNT="0"
     COUNTFILES=$(echo $VCODE|wc -w)
     COUNTFILES=$((++COUNTFILES))
-    DBUSREF=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" --progressbar "                      " $COUNTFILES)
+    DBUSREF=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Download YouTube Video" --progressbar "                      " $COUNTFILES)
 }
 
 progressbar-close() {
@@ -133,21 +133,21 @@ touch $HOME/.kde-services/youtube-download-rate-limit
 sed -i 's/^-/hyphen-/' $HOME/.kde-services/youtube-video-codes
 rm -f !!!_YouTube-Video-Code.err
 
-VCODE=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+VCODE=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
     --inputbox="Enter YouTube Video Code(s) separated by whitespace. By example in this URL: http://www.youtube.com/watch?v=twepYLbAhNo, \
     the Code is twepYLbAhNo." "$(cat $HOME/.kde-services/youtube-video-codes)" 2> /dev/null)
 if-cancel-exit
 echo $VCODE > $HOME/.kde-services/youtube-video-codes
 sed -i 's/hyphen//g' $HOME/.kde-services/youtube-video-codes
 
-DESTINATION=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Destination YouTube Video(s)" --getexistingdirectory "$DIR" 2> /dev/null)
+DESTINATION=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="Destination YouTube Video(s)" --getexistingdirectory "$DIR" 2> /dev/null)
 if-cancel-exit
 
-QUALITY=$(kdialog --geometry 100x210+$((WIDTH/2-100/2))+$((HEIGHT/2-210/2)) --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+QUALITY=$(pydialog --geometry 100x210+$((WIDTH/2-100/2))+$((HEIGHT/2-210/2)) --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
         --radiolist="Select Video Quality" 3840x2160 "Ultra HD (4K)" on 2560x1440 "Ultra HD (2K)" off 1920x1080 "Full HD (1080p)" off 1280x720 "HD (720p)" off 854x480 "Full WVGA (480p)" off 640x360 "NHD (360p)" off 2> /dev/null)
 if-cancel-exit
 
-RATE_LIMIT=$(kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+RATE_LIMIT=$(pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
            --inputbox="Enter Download Rate Limit (e.g. 50K or 4.2M)" $(cat $HOME/.kde-services/youtube-download-rate-limit) 2> /dev/null)
 if-cancel-exit
 echo $RATE_LIMIT > $HOME/.kde-services/youtube-download-rate-limit
@@ -367,19 +367,19 @@ TOTAL_TIME=$((LAST_TIME-INIT_TIME))
 progressbar-close
 
 if [ "$TOTAL_TIME" -lt "60" ];then
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
                    --msgbox="The YouTube video(s) download to finished for ${DESTINATION##*/} directory.   Total time: ${TOTAL_TIME}s" &
 elif [ "$TOTAL_TIME" -gt "59" ] && [ "$TOTAL_TIME" -lt "3600" ];then
     TOTAL_TIME=$(echo "$TOTAL_TIME/60"|bc -l|sed 's/...................$//')
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
                    --msgbox="The YouTube video(s) download to finished for ${DESTINATION##*/} directory.   Total time: ${TOTAL_TIME}m" &
 elif [ "$TOTAL_TIME" -gt "3599" ] && [ "$TOTAL_TIME" -lt "86400" ];then
     TOTAL_TIME=$(echo "$TOTAL_TIME/3600"|bc -l|sed 's/...................$//')
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
                    --msgbox="The YouTube video(s) download to finished for ${DESTINATION##*/} directory.   Total time: ${TOTAL_TIME}h" &
 elif [ "$TOTAL_TIME" -gt "86399" ]; then
     TOTAL_TIME=$(echo "$TOTAL_TIME/86400"|bc -l|sed 's/...................$//')
-    kdialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
+    pydialog --icon=/usr/share/icons/hicolor/scalable/apps/ks-youtube-download-video.svgz --title="YouTube Video Downloader" \
                    --msgbox="The YouTube video(s) download to finished for ${DESTINATION##*/} directory.   Total time: ${TOTAL_TIME}d" &
 fi
 
